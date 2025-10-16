@@ -1,0 +1,125 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{float}
+
+\title{Implementa\c{c}\~ao de uma Tabela Hash para Indexa\c{c}\~ao de Documentos}
+\author{Jo\~ao Vitor Coelho Oliveira \\ Jo\~ao Pedro dos Santos Ferraz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    Universidade Federal de Ouro Preto\\
+    Ci\^encia da Computa\c{c}\~ao\\
+    Estruturas de Dados I
+\end{center}
+
+\begin{abstract}
+    Este relat\'orio descreve a implementa\c{c}\~ao de uma Tabela Hash para indexa\c{c}\~ao de palavras em documentos utilizando a linguagem C. O trabalho apresenta os conceitos utilizados, detalhes da implementa\c{c}\~ao, metodologia de valida\c{c}\~ao e os resultados obtidos.
+\end{abstract}
+
+\section{Introdu\c{c}\~ao}
+A indexa\c{c}\~ao de palavras em documentos \'e uma t\'ecnica fundamental em busca de informa\c{c}\~ao. Neste trabalho, implementamos uma Tabela Hash para armazenar palavras extra\'idas de documentos, associando-as aos respectivos nomes de arquivos nos quais aparecem.
+
+\section{Considera\c{c}\~oes Iniciais}
+\begin{itemize}
+    \item Ambiente de desenvolvimento: GCC e Valgrind.
+    \item Linguagem utilizada: C.
+    \item Documenta\c{c}\~ao gerada em Overleaf (LaTeX).
+\end{itemize}
+
+\section{Metodologia}
+A implementa\c{c}\~ao foi dividida nas seguintes partes principais:
+\begin{itemize}
+    \item Cria\c{c}\~ao da estrutura da Tabela Hash.
+    \item Fun\c{c}\~oes para inser\c{c}\~ao e busca de palavras na tabela.
+    \item Estrutura\c{c}\~ao de um vetor para armazenar a ordem de inser\c{c}\~ao das palavras.
+    \item Impress\~ao dos resultados de acordo com a ordem correta.
+\end{itemize}
+
+\subsection{Estrutura do C\'odigo}
+O c\'odigo implementa uma estrutura \texttt{HashTable} que armazena palavras e seus respectivos documentos. A tabela utiliza uma fun\c{c}\~ao de dispers\~ao para distribuir as palavras de maneira eficiente.
+
+\subsubsection{Fun\c{c}\~oes Implementadas}
+\begin{itemize}
+    \item \texttt{criaHashTable}: Inicializa a tabela hash.
+    \item \texttt{h}: Calcula a posi\c{c}\~ao de armazenamento de uma palavra.
+    \item \texttt{inserePalavra}: Adiciona uma palavra na tabela, associando-a a um documento.
+    \item \texttt{imprimeHash}: Exibe as palavras e seus documentos na ordem correta de inser\c{c}\~ao.
+    \item \texttt{buscaPalavra}: Procura uma palavra na tabela hash e retorna os documentos associados.
+    \item \texttt{removePalavra}: Remove uma palavra da tabela hash, se presente.
+    \item \texttt{liberaHashTable}: Libera a mem\'oria alocada para a tabela hash.
+    \item \texttt{contaPalavras}: Conta o n\'umero total de palavras armazenadas na tabela.
+\end{itemize}
+
+\subsubsection{Principal Fun\c{c}\~ao e Seu Funcionamento}
+A principal fun\c{c}\~ao do c\'odigo \'e a \texttt{inserePalavra}, respons\'avel por adicionar novas palavras na Tabela Hash, garantindo que elas sejam indexadas corretamente. O funcionamento ocorre da seguinte forma:
+
+\begin{itemize}
+    \item O nome do documento e a palavra s\~ao recebidos como entrada.
+    \item A \texttt{hashFunction} \'e chamada para calcular o \'indice apropriado na tabela.
+    \item Caso a palavra j\'a exista na tabela, o documento \'e adicionado \`a sua lista de ocorr\^encias.
+    \item Se a palavra n\~ao existir, uma nova entrada \'e criada na tabela com a palavra e seu documento correspondente.
+    \item A inser\c{c}\~ao \'e feita de forma eficiente para minimizar colis\~oes e garantir a rapidez na busca.
+\end{itemize}
+
+Esta fun\c{c}\~ao \'e essencial para a indexa\c{c}\~ao correta dos documentos, garantindo que cada palavra seja associada aos arquivos onde aparece.
+
+\section{L\'ogica de Resolu\c{c}\~ao do Problema}
+O programa recebe palavras e seus respectivos documentos como entrada e as armazena na Tabela Hash. A fun\c{c}\~ao \texttt{inserePalavra} verifica se a palavra j\'a existe na tabela antes de adicion\'a-la. A fun\c{c}\~ao \texttt{imprimeHash} exibe as palavras na ordem correta.
+
+\section{Resultados Obtidos}
+Os testes foram realizados utilizando conjuntos de palavras de diferentes tamanhos. Os resultados confirmaram que a Tabela Hash armazena e recupera corretamente as palavras e seus documentos. Além disso, foi utilizado a ferramenta Valgrind
+para monitorar o tempo de execução e a utilização de memória.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Tp3/1Tp3.png}
+    \caption{Exemplo de Sa\'ida da Tabela Hash}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Tp3/3Tp3.png}
+    \caption{Uso do Valgrind para verificação}
+\end{figure}
+
+\subsection{Casos de Teste}
+Foram utilizados diferentes conjuntos de palavras e arquivos para validar o funcionamento da Tabela Hash. Todos os testes retornaram os resultados esperados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Tp3/2Tp3.png}
+    \caption{Casos de teste}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Tp3/4Tp3.png}
+    \caption{utilização do corretor.py}
+\end{figure}
+
+\section{Conclus\~ao}
+A implementa\c{c}\~ao da Tabela Hash demonstrou ser eficiente para indexa\c{c}\~ao de palavras. Alguns desafios encontrados incluem:
+\begin{itemize}
+    \item Lida com colis\~oes na tabela hash.
+    \item Impress\~ao das palavras na ordem correta.
+    \item Gerenciamento da mem\'oria din\^amica.
+\end{itemize}
+
+\section{Refer\^encias}
+\begin{itemize}
+    \item Hash Tables. Dispon\'ivel em: \url{https://en.wikipedia.org/wiki/Hash_table}.
+    \item Valgrind. Dispon\'ivel em: \url{https://valgrind.org/}.
+    \item Overleaf. Dispon\'ivel em: \url{https://www.overleaf.com/}.
+\end{itemize}
+
+\end{document}

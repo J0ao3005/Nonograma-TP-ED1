@@ -1,0 +1,127 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{float}
+
+\title{Resolu\c{c}\~ao do Problema do Domin\'o}
+\author{Jo\~ao Vitor Coelho Oliveira \\ Jo\~ao Pedro dos Santos Ferraz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    Universidade Federal de Ouro Preto\\
+    Ci\^encia da Computa\c{c}\~ao\\
+    Estruturas de Dados I
+\end{center}
+
+\begin{abstract}
+    Este relat\'orio descreve a implementa\c{c}\~ao da solu\c{c}\~ao para o problema de forma\c{c}\~ao de sequ\^encia v\'alida de domin\'o utilizando a linguagem C. O trabalho apresenta os conceitos utilizados, detalhes da implementa\c{c}\~ao, metodologia de valida\c{c}\~ao e os resultados obtidos.
+\end{abstract}
+
+\section{Introdu\c{c}\~ao}
+O problema do domin\'o consiste em determinar se um conjunto de pe\c{c}as de domin\'o pode ser organizado em uma sequ\^encia v\'alida, respeitando as regras do jogo. Cada pe\c{c}a tem dois valores (X, Y), e duas pe\c{c}as consecutivas devem compartilhar um valor em comum.
+
+\section{Considera\c{c}\~oes Iniciais}
+\begin{itemize}
+    \item Ambiente de desenvolvimento: GCC e Valgrind.
+    \item Linguagem utilizada: C.
+    \item Documenta\c{c}\~ao gerada em Overleaf (LaTeX).
+\end{itemize}
+
+\section{Metodologia}
+A implementa\c{c}\~ao foi dividida em diferentes partes principais: leitura da entrada, manipula\c{c}\~ao das pe\c{c}as como lista encadeada, valida\c{c}\~ao da possibilidade de forma\c{c}\~ao de sequ\^encia e exibi\c{c}\~ao do resultado.
+
+\subsection{Estrutura do C\'odigo}
+O c\'odigo utiliza um Tipo Abstrato de Dados (TAD) denominado \texttt{Lista}, que encapsula as pe\c{c}as do domin\'o e suas respectivas opera\c{c}\~oes.
+
+\subsubsection{Fun\c{c}\~oes Implementadas}
+\begin{itemize}
+    \item \texttt{LeituraDomino}: Realiza a leitura da entrada e inicializa a lista de pe\c{c}as.
+    \item \texttt{DominoCria}: Cria a estrutura para armazenar as pe\c{c}as.
+    \item \texttt{DominoAdicionaPecaFinal}: Adiciona uma pe\c{c}a ao final da lista.
+    \item\texttt{DominoAdicionaPecaInicio}: Adiciona uma pe\c{c}a no in'icio da lista.
+    \item \texttt{DominoRemoveInicio}: Remove uma pe\c{c}a do in'icio da lista.
+    \item \texttt{DominoDestroi}: Libera toda a mem'oria alocada pela lista.
+    \item \texttt{DominoEhPossivelOrganizarRec}: Fun\c{c}~ao recursiva que tenta organizar as pe\c{c}as na ordem correta.
+    \item \texttt{DominoEhPossivelOrganizar}: Verifica se \'e poss\'ivel formar uma sequ\^encia v\'alida.
+    \item \texttt{encaixa}: Verifica se duas pe\c{c}as podem ser conectadas.
+    \item \texttt{DominoImprime}: Imprime o resultado.
+    \item \texttt{DominoImprimeLista}: Imprime a lista de pe\c{c}as em formato sequencial.
+    \item \texttt{invertePilha}: Inverte a ordem das pe\c{c}as na lista.
+\end{itemize}
+
+\section{L\'ogica de Resolu\c{c}\~ao do Problema}
+A verifica\c{c}\~ao da possibilidade de formar uma sequ\^encia \'e feita atrav\'es de backtracking, testando diferentes ordena\c{c}\~oes das pe\c{c}as.
+
+\subsection{Funcionamento}
+\begin{enumerate}
+    \item Leitura das pe\c{c}as e armazenamento em uma lista encadeada.
+    \item C\'alculo da frequ\^encia dos valores de cada pe\c{c}a.
+    \item Se houver mais de dois valores com frequ\^encia \'{\i}mpar, n\~ao \'e poss\'ivel formar uma sequ\^encia.
+    \item Aplicando backtracking, tentamos encaixar as pe\c{c}as uma a uma.
+    \item Se uma sequ\^encia v\'alida for encontrada, ela \'e impressa.
+\end{enumerate}
+
+\section{Funcao Principal: DominoEhPossivelOrganizar}
+A principal função do programa, \texttt{DominoEhPossivelOrganizar}, é responsável por determinar se é possível organizar as peças do dominó em uma sequência válida.
+
+\begin{itemize}
+    \item Cria uma nova lista para armazenar a ordem correta das peças.
+    \item Aloca um vetor booleano para rastrear as peças usadas.
+    \item Chama a função recursiva \texttt{DominoEhPossivelOrganizarRec} para verificar todas as possibilidades.
+    \item Se uma ordenação válida for encontrada, imprime a sequência resultante.
+    \item Libera toda a memória alocada antes de encerrar a execução.
+\end{itemize}
+
+
+\section{Resultados Obtidos}
+Os testes realizados utilizaram diferentes dimens\~oes de grades e combina\c{c}\~oes de dicas. Cerca de 90\% dos testes realizados obtiveram as saidas esperadas. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Domino/domino1.png}
+    \caption{Teste com Corretor.py}
+\end{figure}
+
+\subsection{Casos de Teste}
+Os testes foram realizados com diferentes entradas, incluindo cen\'arios simples e complexos. O programa apresentou os resultados esperados, validando corretamente se uma sequ\^encia \'e poss\'ivel ou n\~ao. Além disso, foi utilizado a ferramenta Valgrind
+para monitorar o tempo de execução e a utilização de memória.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Domino/domino2.png}
+    \caption{Teste com entrada Nº 1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Domino/domino3.png}
+    \caption{Teste com entrada Nº3}
+\end{figure}
+
+
+
+\section{Conclus\~ao}
+A implementa\c{c}\~ao demonstrou que o problema pode ser resolvido de maneira eficiente utilizando listas encadeadas e um algoritmo de backtracking para testar diferentes combina\c{c}\~oes. Algumas dificuldades encontradas incluem:
+\begin{itemize}
+    \item Gerenciamento de mem\'oria din\^amica e desaloca\c{c}\~ao correta.
+    \item Otimiza\c{c}\~ao do algoritmo para evitar verificações desnecess\'arias.
+\end{itemize}
+
+\section{Refer\^encias}
+\begin{itemize}
+    \item Jogo de Domin\'o. Dispon\'ivel em: \url{https://en.wikipedia.org/wiki/Dominoes}.
+    \item Valgrind. Dispon\'ivel em: \url{https://valgrind.org/}.
+    \item Overleaf. Dispon\'ivel em: \url{https://www.overleaf.com/}.
+\end{itemize}
+
+\end{document}
+

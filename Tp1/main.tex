@@ -1,0 +1,120 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{float}
+
+\title{Resolução do Nonograma}
+\author{Jo\~ao Vitor Coelho Oliveira \\ João Pedro dos Santos Ferraz \\
+Matr\'icula: 23.1.4133 e 23.1.4030}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    Universidade Federal de Ouro Preto\\
+    Ci\^encia da Computa\c{c}\~ao\\
+    Estrutura de Dados I
+\end{center}
+
+\begin{abstract}
+    Este relat\'orio descreve a implementa\c{c}\~ao da resolu\c{c}\~ao de um Nonograma em linguagem C. O trabalho aborda os principais conceitos utilizados, detalhes da implementa\c{c}\~ao, metodologias de valida\c{c}\~ao, e os resultados obtidos durante a execu\c{c}\~ao dos casos de teste.
+\end{abstract}
+
+\section{Introdu\c{c}\~ao}
+O Nonograma \'{e} um quebra-cabe\c{c}a l\'ogico no qual o objetivo \'{e} preencher uma grade baseada em dicas num\'ericas associadas a cada linha e coluna. Essas dicas indicam o tamanho e a sequ\^encia de blocos preenchidos que devem aparecer na respectiva linha ou coluna. 
+
+\subsection{Especifica\c{c}\~oes do Problema}
+O programa deve ler as dimens\~oes da grade e as dicas fornecidas para cada linha e coluna. Em seguida, deve preencher a grade, respeitando as restri\c{c}\~oes impostas pelas dicas, e exibir todas as solu\c{c}\~oes poss\'iveis.
+
+\section{Considera\c{c}\~oes Iniciais}
+\begin{itemize}
+    \item Ambiente de desenvolvimento: Visual Studio Code e GCC.
+    \item Linguagem utilizada: C.
+    \item Documenta\c{c}\~ao criada em Overleaf (LaTeX).
+\end{itemize}
+
+\section{Metodologia}
+A implementa\c{c}\~ao foi dividida em tr\^es partes principais: leitura de entrada, valida\c{c}\~ao e preenchimento da grade, e exibi\c{c}\~ao das solu\c{c}\~oes.
+
+\subsection{Estrutura do C\'odigo}
+O c\'odigo utiliza um Tipo Abstrato de Dados (TAD) denominado \texttt{Nonogram}, que encapsula a grade, as dicas de linhas e colunas, e as fun\c{c}\~oes auxiliares.
+
+\subsubsection{Fun\c{c}\~oes Implementadas}
+\begin{itemize}
+    \item \texttt{NonogramAllocate}: Aloca mem\'oria para o Nonograma.
+    \item \texttt{NonogramFree}: Libera a mem\'oria alocada.
+    \item \texttt{NonogramRead}: L\^e os dados de entrada e inicializa o Nonograma.
+    \item \texttt{validateLine}: Verifica se uma linha ou coluna est\'a de acordo com as dicas fornecidas.
+    \item \texttt{validateBoard}: Garante que a grade completa respeite todas as restri\c{c}\~oes.
+    \item \texttt{solveNonogram}: Resolve o Nonograma utilizando backtracking e poda.
+\end{itemize}
+
+\section{L\'ogica de Resolu\c{c}\~ao do Problema}
+A fun\c{c}\~ao principal do c\'odigo \'e \texttt{solveNonogram}, que utiliza um algoritmo de \textit{backtracking} para explorar todas as poss\'iveis configura\c{c}\~oes do tabuleiro. A cada posi\c{c}\~ao da grade, o algoritmo tenta preencher com "1" (preenchido) ou "0" (vazio), verificando parciamente se a configura\c{c}\~ao \'e v\'alida antes de prosseguir.
+
+\subsection{Funcionamento}
+\begin{enumerate}
+    \item \textbf{Inicializa\c{c}\~ao}: O programa come\c{c}a lendo as dimens\~oes do tabuleiro e as dicas de linhas e colunas por meio da fun\c{c}\~ao \texttt{NonogramRead}.
+    \item \textbf{Validação Parcial}: Durante o preenchimento, a fun\c{c}\~ao \texttt{isPartialValid} verifica se a configura\c{c}\~ao atual atende \`as restri\c{c}\~oes das dicas para a linha e coluna em quest\~ao.
+    \item \textbf{Poda}: Caso uma configura\c{c}\~ao seja considerada inv\'alida, o algoritmo retrocede (\textit{backtracks}) e tenta uma alternativa.
+    \item \textbf{Validação Completa}: Quando a grade está totalmente preenchida, a fun\c{c}\~ao \texttt{validateBoard} garante que todas as linhas e colunas estejam de acordo com as dicas fornecidas.
+    \item \textbf{Exibi\c{c}\~ao dos Resultados}: Todas as solu\c{c}\~oes v\'alidas s\~ao impressas, numeradas sequencialmente.
+\end{enumerate}
+
+\subsection{Detalhes do Algoritmo}
+O algoritmo utiliza a seguinte estrutura:
+\begin{itemize}
+    \item Cada posi\c{c}\~ao \((i, j)\) \'{e} preenchida recursivamente.
+    \item A cada passo, a configura\c{c}\~ao parcial \'e validada pela fun\c{c}\~ao \texttt{isPartialValid}.
+    \item Ao atingir o final da grade, a solu\c{c}\~ao completa \'e validada e, se v\'alida, exibida.
+\end{itemize}
+
+\section{Resultados Obtidos}
+Os testes realizados utilizaram diferentes dimens\~oes de grades e combina\c{c}\~oes de dicas. Cerca de 90\% dos testes realizados obtiveram as saidas esperadas. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{correto.png}
+    \caption{Teste com Corretor.py}
+\end{figure}
+
+\subsection{Casos de Teste}
+Os casos de teste incluiram entradas pequenas e grandes, validando a eficiencia e a corretude do codigo. Além disso, foi utilizado a ferramenta Valgrind para monitorar o tempo de execução e a utilizaço de memória.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Captura de tela 2025-01-12 132526.png}
+    \caption{Teste com entrada Nº 1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Nonograma_Fotos/valgrind_teste4.png}
+    \caption{Teste com entrada Nº4}
+\end{figure}
+
+\section{Conclus\~ao}
+O projeto demonstrou a efici\^encia do algoritmo de backtracking na resolu\c{c}\~ao de Nonogramas, utilizando valida\c{c}\~oes parciais e poda para otimizar o desempenho. Al\'em disso, a estrutura modular permitiu uma implementa\c{c}\~ao organizada e de f\'acil manuten\c{c}\~ao.
+
+Apesar disso, algumas dificuldades foram encontradas, como:
+\begin{itemize}
+    \item Ajustar a valida\c{c}\~ao parcial para que descartasse corretamente todas as configura\c{c}\~oes inv\'alidas sem comprometer solu\c{c}\~oes v\'alidas.
+    \item Gerenciar o desempenho em grades maiores, onde o algoritmo inicial apresentava um crescimento exponencial no tempo de execu\c{c}\~ao devido ao grande espa\c{c}o de busca.
+    \item Garantir a impress\~ao correta das solu\c{c}\~oes de acordo com o formato especificado, incluindo a numera\c{c}\~ao das solu\c{c}\~oes e a representa\c{c}\~ao visual adequada do tabuleiro.
+\end{itemize}
+
+\section{Refer\^encias}
+\begin{itemize}
+    \item Nonograms. Dispon\'ivel em: \url{https://en.wikipedia.org/wiki/Nonogram}.
+    \item Visual Studio Code. Dispon\'ivel em: \url{https://code.visualstudio.com/}.
+    \item Overleaf. Dispon\'ivel em: \url{https://www.overleaf.com/}.
+\end{itemize}
+
+\end{document}
